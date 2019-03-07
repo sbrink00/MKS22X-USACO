@@ -12,13 +12,16 @@ public class USACO{
     Scanner scan = new Scanner (new File(filename));
     ArrayList<String> lines = new ArrayList<String>();
     initLines(lines, scan);
-    for (String line:lines) System.out.println(line);
+    int[] info = new int[4];
+    //for (String line:lines) System.out.println(line);
     return 1;
   }
 
-  private static void initLines(ArrayList<String> ary, Scanner in){
-    while (in.hasNext()) ary.add(in.nextLine());
+  private static void initLines(ArrayList<String> ary, Scanner in){while (in.hasNext()) ary.add(in.nextLine());}
+  private static void initInfo(int[] ary){
+    for
   }
+
 
 
 
