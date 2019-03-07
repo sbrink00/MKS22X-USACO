@@ -3,14 +3,26 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
-  public static void main(String[]args){}
-
-  private int[][] pasture;
-  private ArrayList<String> lines;
-
-  public USACO(String filename) throws FileNotFoundException{
-    Scanner scan = new Scanner(new File(filename));
-    while (scan.hasNext()) lines.add(scan.nextLine());
-    
+  public static void main(String[]args){
+    try {bronze("test.blah");}
+    catch (FileNotFoundException e) {e.printStackTrace();}
   }
+
+  public static int bronze(String filename) throws FileNotFoundException{
+    Scanner scan = new Scanner (new File(filename));
+    ArrayList<String> lines = new ArrayList<String>();
+    initLines(lines, scan);
+    for (String line:lines) System.out.println(line);
+    return 1;
+  }
+
+  private static void initLines(ArrayList<String> ary, Scanner in){
+    while (in.hasNext()) ary.add(in.nextLine());
+  }
+
+
+
+
+
+
 }
