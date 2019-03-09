@@ -16,6 +16,12 @@ public class USACO{
     initInfo(info, lines);
     int[][] lake = new int[info[0]][info[1]];
     initLake(lake, lines, info[0], info[1]);
+    for (int idx = 0; idx < lake.length; idx ++){
+      for (int idx2 = 0; idx2 < lake[0].length; idx2 ++){
+        System.out.print(lake[idx][idx2] + " ");
+      }
+      System.out.print("\n");
+    }
     return 1;
   }
 
