@@ -83,15 +83,24 @@ public class USACO{
     for (int idx = 0; idx < instructions.length; idx ++){
       int r = instructions[idx][0] - 1;
       int c = instructions[idx][1];
-      int min = lake[r + 1][c];
+      int max = lake[r + 1][c];
+      int dig = instructions[idx][2];
       for (int idx2 = 0; idx2 < 9; idx2 ++){
         int i = idx2 % 3;
         if (i == 0) r ++;
-        
+        if (lake[r][c + i] > max) max = lake[r][c + i];
+      }
+      r = instructions[idx][0] - 1;
+      for (int idx2 = 0; idx2 < 9; idx2 ++){
+        int i = idx2 % 3;
+        if (i == 0) r ++;
+        if (!(lake[r][c + i] < max - dig)) lake[r][c + i] = max - dig;
       }
     }
     return 1;
   }
+
+  
 
 
 
