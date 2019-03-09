@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    try {bronze("lake1.blah");}
-    catch (FileNotFoundException e) {e.printStackTrace();}
+    //try {bronze("lake1.blah");}
+    //catch (FileNotFoundException e) {e.printStackTrace();}
+    System.out.println(0%3);
   }
 
   public static int bronze(String filename) throws FileNotFoundException{
@@ -19,6 +20,15 @@ public class USACO{
     for (int idx = 0; idx < lake.length; idx ++){
       for (int idx2 = 0; idx2 < lake[0].length; idx2 ++){
         System.out.print(lake[idx][idx2] + " ");
+      }
+      System.out.print("\n");
+    }
+    System.out.println("");
+    int[][] instructions = new int[info[3]][3];
+    initInstructions(instructions, lines, info[3]);
+    for (int idx = 0; idx < instructions.length; idx ++){
+      for (int idx2 = 0; idx2 < instructions[0].length; idx2 ++){
+        System.out.print(instructions[idx][idx2] + " ");
       }
       System.out.print("\n");
     }
@@ -38,18 +48,50 @@ public class USACO{
     s.remove(0);
   }
   private static void initLake(int[][] ary, ArrayList<String> lines, int r, int c){
-    for (int idx = 0; idx < r; idx ++){
-      String row = lines.get(idx);
+    int base = r;
+    while (r > 0){
+      String row = lines.get(0);
       row += " ";
       for (int idx2 = 0; idx2 < c; idx2 ++){
         int space = row.indexOf(" ");
         int depth = Integer.parseInt(row.substring(0, space));
-        ary[idx][idx2] = depth;
+        ary[base - r][idx2] = depth;
         row = row.substring(space + 1, row.length());
       }
+      lines.remove(0);
+      r --;
+    }
+  }
+  private static void initInstructions(int[][] ins, ArrayList<String> lines, int r){
+    int base = r;
+    while (r > 0){
+      String row = lines.get(0);
+      row += " ";
+      for (int idx2 = 0; idx2 < 3; idx2 ++){
+        int space = row.indexOf(" ");
+        int info = Integer.parseInt(row.substring(0, space));
+        ins[base - r][idx2] = info - 1;
+        if (idx2 == 2) ins[base - r][idx2] ++;
+        row = row.substring(space + 1, row.length());
+      }
+      lines.remove(0);
+      r --;
     }
   }
 
+  private static int solve(int[][] lake, int[][] instructions){
+    for (int idx = 0; idx < instructions.length; idx ++){
+      int r = instructions[idx][0] - 1;
+      int c = instructions[idx][1];
+      int min = lake[r + 1][c];
+      for (int idx2 = 0; idx2 < 9; idx2 ++){
+        int i = idx2 % 3;
+        if (i == 0) r ++;
+        
+      }
+    }
+    return 1;
+  }
 
 
 
