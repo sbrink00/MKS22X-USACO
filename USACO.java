@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    //try {bronze("lake1.blah");}
-    //catch (FileNotFoundException e) {e.printStackTrace();}
-    System.out.println(0%3);
+    try {System.out.println(bronze("lake1.blah"));}
+    catch (FileNotFoundException e) {e.printStackTrace();}
   }
 
   public static int bronze(String filename) throws FileNotFoundException{
@@ -17,22 +16,22 @@ public class USACO{
     initInfo(info, lines);
     int[][] lake = new int[info[0]][info[1]];
     initLake(lake, lines, info[0], info[1]);
-    for (int idx = 0; idx < lake.length; idx ++){
+    /*for (int idx = 0; idx < lake.length; idx ++){
       for (int idx2 = 0; idx2 < lake[0].length; idx2 ++){
         System.out.print(lake[idx][idx2] + " ");
       }
       System.out.print("\n");
     }
-    System.out.println("");
+    System.out.println("");*/
     int[][] instructions = new int[info[3]][3];
     initInstructions(instructions, lines, info[3]);
-    for (int idx = 0; idx < instructions.length; idx ++){
+    /*for (int idx = 0; idx < instructions.length; idx ++){
       for (int idx2 = 0; idx2 < instructions[0].length; idx2 ++){
         System.out.print(instructions[idx][idx2] + " ");
       }
       System.out.print("\n");
-    }
-    return 1;
+    }*/
+    return solve(lake, instructions, info[2]);
   }
 
   private static void initLines(ArrayList<String> ary, Scanner in){while (in.hasNext()) ary.add(in.nextLine());}
@@ -79,7 +78,7 @@ public class USACO{
     }
   }
 
-  private static int solve(int[][] lake, int[][] instructions){
+  private static int solve(int[][] lake, int[][] instructions, int depth){
     for (int idx = 0; idx < instructions.length; idx ++){
       int r = instructions[idx][0] - 1;
       int c = instructions[idx][1];
@@ -97,10 +96,17 @@ public class USACO{
         if (!(lake[r][c + i] < max - dig)) lake[r][c + i] = max - dig;
       }
     }
-    return 1;
+    return calcAnswer(lake, depth);
   }
-
-  
+  private static int calcAnswer(int[][] lake, int depth){
+    int totalDepth = 0;
+    for (int idx = 0; idx < lake.length; idx ++){
+      for (int idx2 = 0; idx2 < lake[0].length; idx2 ++){
+        if (depth > lake[idx][idx2]) totalDepth += depth - lake[idx][idx2];
+      }
+    }
+    return totalDepth * 72 * 72;
+  }
 
 
 
