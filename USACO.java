@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    try {System.out.println(silver("travel1.blah"));}
+    try {System.out.println("\n" + silver("travel1.blah"));}
     catch (FileNotFoundException e) {e.printStackTrace();}
   }
 
@@ -109,6 +109,9 @@ public class USACO{
     initInfo(instructions, lines);
     for (int idx = 0; idx < instructions.length; idx ++) instructions[idx] --;
     int[][] vals = initVals(pasture);
+    System.out.println(vals.length);
+    System.out.println(vals[0].length);
+    //System.out.println(intString(vals));
     fillMoves(vals, instructions, info[2]);
     return vals[instructions[2]][instructions[3]];
   }
@@ -153,7 +156,22 @@ public class USACO{
           }
         }
       }
+      //System.out.println(intString(vals) + "\n");
     }
+  }
+
+  public static String intString(int[][] ary){
+    String output = "";
+    for (int idx = 0; idx < ary.length; idx ++){
+      for (int idx2 = 0; idx2 < ary[0].length; idx2 ++){
+        if (ary[idx][idx2] < 10) output += "___" + ary[idx][idx2];
+        else if (ary[idx][idx2] < 100) output += "__" + ary[idx][idx2];
+        else if (ary[idx][idx2] < 1000) output += "_" + ary[idx][idx2];
+        else output += ary[idx][idx2];
+        output += " ";
+      }
+    }
+    return output;
   }
 
 
