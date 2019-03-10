@@ -102,12 +102,26 @@ public class USACO{
     int[] info = new int[4];
     lines.set(0, lines.get(0) + " 4");
     initInfo(info, lines);
-    int[][] lake = new int[info[0]][info[1]];
-    initLake(lake, lines, info[0], info[1]);
-    int[][] instructions = new int[info[3]][3];
-    initInstructions(instructions, lines, info[3]);
-    return solve(lake, instructions, info[2]);
+    //for (int idx = 0; idx < info.length; idx ++) System.out.println(info[idx]+ " ");
+    char[][] pasture = new char[info[0]][info[1]];
+    initPasture(pasture, lines, info[0], info[1]);
+    int[] instructions = new int[4];
+    initInfo(instructions, lines);
+    //return solve(lake, instructions, info[2]);
+    return 3;
   }
+
+  private static void initPasture(char[][] pasture, ArrayList<String> lines, int r, int c){
+    int base = r;
+    while (r > 0){
+      String row = lines.get(0);
+      for (int idx2 = 0; idx2 < c; idx2 ++) pasture[base - r][idx2] = row.charAt(idx2);
+      lines.remove(0);
+      r --;
+    }
+  }
+
+
 
 
 
