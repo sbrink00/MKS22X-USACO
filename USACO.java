@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    try {silver("travel5.blah");}
+    try {System.out.println(silver("travel1.blah"));}
     catch (FileNotFoundException e) {e.printStackTrace();}
   }
 
@@ -108,8 +108,9 @@ public class USACO{
     int[] instructions = new int[4];
     initInfo(instructions, lines);
     for (int idx = 0; idx < instructions.length; idx ++) instructions[idx] --;
-    //return solve(lake, instructions, info[2]);
-    return 3;
+    int[][] vals = initVals(pasture);
+    fillMoves(vals, instructions, info[2]);
+    return vals[instructions[2]][instructions[3]];
   }
 
   private static void initPasture(char[][] pasture, ArrayList<String> lines, int r, int c){
@@ -132,20 +133,24 @@ public class USACO{
     return vals;
   }
 
-  
+  public static boolean square(int[][] ary, int r, int c){
+    return r >= 0 && c >= 0 && r < ary.length && c < ary.length;
+  }
 
   public static void fillMoves(int[][] vals, int[] instructions, int steps){
     vals[instructions[0]][instructions[1]] = 1;
     for (int idx = 0; idx < steps; idx ++){
       int[][] reference = vals;
-      moves = new int[steps * 2 + 1][steps * 2 + 1];
+      vals = new int[reference.length][reference[0].length];
       for (int r = 0; r < reference.length; r ++){
         for (int c = 0; c < reference.length; c ++){
-          //System.out.println(this);
-          if (square(r + 1, c)) moves[r][c] += reference[r + 1][c];
-          if (square(r - 1, c)) moves[r][c] += reference[r - 1][c];
-          if (square(r, c + 1)) moves[r][c] += reference[r][c + 1];
-          if (square(r, c - 1)) moves[r][c] += reference[r][c - 1];
+          if (reference[r][c] == -1) vals[r][c] = -1;
+          else{
+            if (square(reference, r + 1, c) && reference[r + 1][c] != -1) vals[r][c] += reference[r + 1][c];
+            if (square(reference, r - 1, c) && reference[r - 1][c] != -1) vals[r][c] += reference[r - 1][c];
+            if (square(reference, r, c + 1) && reference[r][c + 1] != -1) vals[r][c] += reference[r][c + 1];
+            if (square(reference, r, c - 1) && reference[r][c - 1] != -1) vals[r][c] += reference[r][c - 1];
+          }
         }
       }
     }
