@@ -107,6 +107,7 @@ public class USACO{
     initPasture(pasture, lines, info[0], info[1]);
     int[] instructions = new int[4];
     initInfo(instructions, lines);
+    for (int idx = 0; idx < instructions.length; idx ++) instructions[idx] --;
     //return solve(lake, instructions, info[2]);
     return 3;
   }
@@ -118,6 +119,35 @@ public class USACO{
       for (int idx2 = 0; idx2 < c; idx2 ++) pasture[base - r][idx2] = row.charAt(idx2);
       lines.remove(0);
       r --;
+    }
+  }
+
+  private static int[][] initVals(char[][] pasture){
+    int[][] vals = new int[pasture.length][pasture[0].length];
+    for (int idx = 0; idx < vals.length; idx ++){
+      for (int idx2 = 0; idx2 < vals[0].length; idx2 ++){
+        if (pasture[idx][idx2] == '*') vals[idx][idx2] = -1;
+      }
+    }
+    return vals;
+  }
+
+  
+
+  public static void fillMoves(int[][] vals, int[] instructions, int steps){
+    vals[instructions[0]][instructions[1]] = 1;
+    for (int idx = 0; idx < steps; idx ++){
+      int[][] reference = vals;
+      moves = new int[steps * 2 + 1][steps * 2 + 1];
+      for (int r = 0; r < reference.length; r ++){
+        for (int c = 0; c < reference.length; c ++){
+          //System.out.println(this);
+          if (square(r + 1, c)) moves[r][c] += reference[r + 1][c];
+          if (square(r - 1, c)) moves[r][c] += reference[r - 1][c];
+          if (square(r, c + 1)) moves[r][c] += reference[r][c + 1];
+          if (square(r, c - 1)) moves[r][c] += reference[r][c - 1];
+        }
+      }
     }
   }
 
