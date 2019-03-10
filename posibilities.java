@@ -7,21 +7,33 @@ public class posibilities{
     //  System.out.println(board);
     //  System.out.println("\n");
     //}
-    posibilities recursive = new posibilities(3);
-    recursive.fillMoves(3, 3, 0);
-    System.out.println("recursive: " + "\n" + recursive + "\n");
+    //posibilities recursive = new posibilities(3);
+    //recursive.fillMoves(3, 3, 0);
+    //System.out.println("recursive: " + "\n" + recursive + "\n");
 
-    posibilities loops = new posibilities(3);
+    posibilities loops = new posibilities(15);
     loops.fillMoves();
-    System.out.println("loops: " + "\n" + loops + "\n");
+    System.out.println("loops: " + loops.steps + "\n" + loops);
+    for (int idx = 0; idx < loops.size(); idx ++){
+      for (int idx2 = 0; idx2 < loops.size(); idx2 ++){
+        if (loops.get(idx, idx2) < 0) System.out.println(loops.get(idx, idx2));
+      }
+    }
   }
 
   private int[][] moves;
-  int steps;
+  private int steps;
 
   public posibilities(int move){
     moves = new int[move * 2 + 1][move * 2 + 1];
     steps = move;
+  }
+
+  public int steps() {return steps;}
+  public int size(){return moves.length;}
+
+  public int get(int r, int c){
+    return moves[r][c];
   }
 
   public boolean square(int r, int c){
