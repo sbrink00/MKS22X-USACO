@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    try {System.out.println(bronze("lake1.blah"));}
+    try {silver("travel5.blah");}
     catch (FileNotFoundException e) {e.printStackTrace();}
   }
 
@@ -16,21 +16,8 @@ public class USACO{
     initInfo(info, lines);
     int[][] lake = new int[info[0]][info[1]];
     initLake(lake, lines, info[0], info[1]);
-    /*for (int idx = 0; idx < lake.length; idx ++){
-      for (int idx2 = 0; idx2 < lake[0].length; idx2 ++){
-        System.out.print(lake[idx][idx2] + " ");
-      }
-      System.out.print("\n");
-    }
-    System.out.println("");*/
     int[][] instructions = new int[info[3]][3];
     initInstructions(instructions, lines, info[3]);
-    /*for (int idx = 0; idx < instructions.length; idx ++){
-      for (int idx2 = 0; idx2 < instructions[0].length; idx2 ++){
-        System.out.print(instructions[idx][idx2] + " ");
-      }
-      System.out.print("\n");
-    }*/
     return solve(lake, instructions, info[2]);
   }
 
@@ -106,6 +93,20 @@ public class USACO{
       }
     }
     return totalDepth * 72 * 72;
+  }
+
+  public static int silver(String filename) throws FileNotFoundException{
+    Scanner scan = new Scanner (new File(filename));
+    ArrayList<String> lines = new ArrayList<String>();
+    initLines(lines, scan);
+    int[] info = new int[4];
+    lines.set(0, lines.get(0) + " 4");
+    initInfo(info, lines);
+    int[][] lake = new int[info[0]][info[1]];
+    initLake(lake, lines, info[0], info[1]);
+    int[][] instructions = new int[info[3]][3];
+    initInstructions(instructions, lines, info[3]);
+    return solve(lake, instructions, info[2]);
   }
 
 
