@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    try {System.out.println("\n" + silver("travel4.blah"));}
+    try {System.out.println("\n" + silver("travel2.blah"));}
     catch (FileNotFoundException e) {e.printStackTrace();}
   }
 
@@ -108,15 +108,16 @@ public class USACO{
     int[] instructions = new int[4];
     initInfo(instructions, lines);
     for (int idx = 0; idx < instructions.length; idx ++) instructions[idx] -= 1;
-    for (int idx = 0; idx < instructions.length; idx ++) System.out.println(instructions[idx]+ " ");
+    //for (int idx = 0; idx < instructions.length; idx ++) System.out.println(instructions[idx]+ " ");
     int[][] vals = initVals(pasture);
     //System.out.println(vals.length);
     //System.out.println(vals[0].length);
     //System.out.println(intString(vals));
     //fillMoves(instructions[0], instructions[1], 0, vals, info[2]);
-    fillMoves(vals, instructions, info[2]);
-    System.out.println(intString(vals));
-    return vals[instructions[2]][instructions[3]];
+    //System.out.println(info[2]);
+    return fillMoves(vals, instructions, info[2]);
+    //System.out.println(intString(vals));
+    //return vals[instructions[2]][instructions[3]];
     //return -1;
   }
 
@@ -144,13 +145,13 @@ public class USACO{
     return r >= 0 && c >= 0 && r < ary.length && c < ary[0].length;
   }
 
-  public static void fillMoves(int[][] vals, int[] instructions, int steps){
+  public static int fillMoves(int[][] vals, int[] instructions, int steps){
     vals[instructions[0]][instructions[1]] = 1;
     for (int idx = 0; idx < steps; idx ++){
       int[][] reference = vals;
       vals = new int[reference.length][reference[0].length];
       for (int r = 0; r < reference.length; r ++){
-        for (int c = 0; c < reference.length; c ++){
+        for (int c = 0; c < reference[0].length; c ++){
           if (reference[r][c] == -1) vals[r][c] = -1;
           else{
             if (square(reference, r + 1, c) && reference[r + 1][c] != -1) vals[r][c] += reference[r + 1][c];
@@ -160,8 +161,9 @@ public class USACO{
           }
         }
       }
-      System.out.println(intString(vals) + "\n");
+      //if (idx == steps - 1) return vals[instructions[2]][instructions[3]];
     }
+    return vals[instructions[2]][instructions[3]];
   }
 
   private static void fillMoves(int r, int c, int curStep, int[][] ary, int totalStep){
