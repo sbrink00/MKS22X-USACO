@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class USACO{
   public static void main(String[]args){
-    try {System.out.println("\n" + silver("travel1.blah"));}
+    try {System.out.println("\n" + silver("travel4.blah"));}
     catch (FileNotFoundException e) {e.printStackTrace();}
   }
 
@@ -107,13 +107,17 @@ public class USACO{
     initPasture(pasture, lines, info[0], info[1]);
     int[] instructions = new int[4];
     initInfo(instructions, lines);
-    for (int idx = 0; idx < instructions.length; idx ++) instructions[idx] --;
+    for (int idx = 0; idx < instructions.length; idx ++) instructions[idx] -= 1;
+    for (int idx = 0; idx < instructions.length; idx ++) System.out.println(instructions[idx]+ " ");
     int[][] vals = initVals(pasture);
-    System.out.println(vals.length);
-    System.out.println(vals[0].length);
+    //System.out.println(vals.length);
+    //System.out.println(vals[0].length);
     //System.out.println(intString(vals));
+    //fillMoves(instructions[0], instructions[1], 0, vals, info[2]);
     fillMoves(vals, instructions, info[2]);
+    System.out.println(intString(vals));
     return vals[instructions[2]][instructions[3]];
+    //return -1;
   }
 
   private static void initPasture(char[][] pasture, ArrayList<String> lines, int r, int c){
@@ -137,7 +141,7 @@ public class USACO{
   }
 
   public static boolean square(int[][] ary, int r, int c){
-    return r >= 0 && c >= 0 && r < ary.length && c < ary.length;
+    return r >= 0 && c >= 0 && r < ary.length && c < ary[0].length;
   }
 
   public static void fillMoves(int[][] vals, int[] instructions, int steps){
@@ -156,8 +160,21 @@ public class USACO{
           }
         }
       }
-      //System.out.println(intString(vals) + "\n");
+      System.out.println(intString(vals) + "\n");
     }
+  }
+
+  private static void fillMoves(int r, int c, int curStep, int[][] ary, int totalStep){
+    if (square(ary, r, c) && ary[r][c] != -1){
+      if (curStep == totalStep) ary[r][c] ++;
+      else{
+        fillMoves(r + 1, c, curStep + 1, ary, totalStep);
+        fillMoves(r - 1, c, curStep + 1, ary, totalStep);
+        fillMoves(r, c + 1, curStep + 1, ary, totalStep);
+        fillMoves(r, c - 1, curStep + 1, ary, totalStep);
+      }
+    }
+    System.out.println(intString(ary));
   }
 
   public static String intString(int[][] ary){
@@ -170,6 +187,7 @@ public class USACO{
         else output += ary[idx][idx2];
         output += " ";
       }
+      output += "\n";
     }
     return output;
   }
